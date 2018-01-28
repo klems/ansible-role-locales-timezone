@@ -1,15 +1,7 @@
 ---
 
-- name: "configuring locales ..."
-  locale_gen:
-    name: "{{ item }}"
-    state: present
-  with_items: "{{ locales }}"
-  become: yes
+- import_tasks: tasks/debian.yml
+  when: ansible_distribution == "Debian"
 
-- name: "configuring timezone ..."
-  timezone:
-    name: "{{ timezone }}"
-  notify:
-    - update tzdata
-  become: yes
+- import_tasks: tasks/ubuntu.yml
+  when: ansible_distribution == "Ubuntu"

@@ -1,0 +1,21 @@
+---
+
+- name: "installiong tzdata ..."
+  apt:
+    name: tzdata
+    state: present
+  become: yes
+
+- name: "configuring locales ..."
+  locale_gen:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ locales }}"
+  become: yes
+
+- name: "configuring timezone ..."
+  timezone:
+    name: "{{ timezone }}"
+  notify:
+    - update tzdata
+  become: yes
