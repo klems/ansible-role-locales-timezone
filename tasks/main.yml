@@ -1,2 +1,13 @@
 ---
-# tasks file for ansible-role-locales-timezone
+
+- name: "configuring locales ..."
+  locale_gen:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ locales }}"
+  become: yes
+
+- name: "configuring timezone ..."
+  timezone:
+    name: "{{ timezone }}"
+  become: yes
