@@ -14,4 +14,7 @@ RUN pip install --upgrade setuptools && pip install ansible
 
 RUN mkdir -p /etc/ansible && echo "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts
 
+RUN ln -sf /usr/share/zoneinfo/Etc/UTC /etc/localtime \
+ && dpkg-reconfigure -f noninteractive tzdata
+
 ENTRYPOINT ["/sbin/init"]
