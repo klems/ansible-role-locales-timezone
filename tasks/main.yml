@@ -10,4 +10,6 @@
 - name: "configuring timezone ..."
   timezone:
     name: "{{ timezone }}"
+  notify:
+    - update tzdata
   become: yes
